@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gardening</title>
+	    <link rel="stylesheet" href="css/feed.css">
+        <link rel="stylesheet" href="css/index_css.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <%if (isLoggedIn) { %>
+            <div class="bar">
+                <span class="logo"></span>
+                <span class="sitename">The Little Helper</span>
+                <span class="search_con">
+                    <form action="/gardening">   
+                        <input type="text" method="GET" name="search" placeholder=""></> 
+                        <button type="submit" value="Search">Search</button>
+                    </form>
+                </span>
+                <a href="/" class="home">HOME</a>
+                <a href="/logout" class="home">LOG-OUT</a>        
+                <a href="/profile" class="profile"></a>
+            </div>
+        <% } else { %>
+            <div class="bar">
+                <span class="logo"></span>
+                <span class="sitename">The Little Helper</span>
+                <span class="search_con">
+                    <form action="/gardening">   
+                        <input type="text" method="GET" name="search" placeholder=""></> 
+                        <button type="submit" value="Search">Search</button>
+                    </form>  
+                </span>
+                <a href="/" class="home">HOME</a>
+                <a href="#" id="button2" class="home">LOG-IN</a>
+                <a href="#" id="button3" class="home">REGISTER</a>
+            </div>
+        <% } %>
+
+        <div class="gardeningfeed_con">
+            <img src="images/gardeningcover2.2.jpg" alt="baking" style="width:100%;" style="box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);">
+            <div id="text">GARDENING</div> 
+            <div id="quote" style="white-space: pre-wrap;">"Gardening&#10;adds years to&#10;your life,&#10;and life to&#10;your years"</div>   
+            <div id="name"></div>  
+        </div>
+        <div class="grid_con">
+            <div class="grid">
+                <% posts.forEach(post => { %>
+                    <div class="post">
+                        <img src="images/bakingcover.jpg" alt="baking" class="post_image">
+                        <div class="post_content">
+                            <p class="post_title"><%= post.title %></p>
+                            <p class="post_desc"><%= post.content %></p>
+                        </div>
+                        <div class="post_info" style="background-color: lightgray;">
+                            <div>
+                                <i class="material-icons">
+                                    star
+                                </i>
+                                300
+                            </div>
+                            <a href="post/<%= post._id%>"  class="post_link">View Article</a>
+                        </div>
+                    </div>
+                <% }) %>
+                
+                
+            </div>
+            
+        </div>
+        <div style="margin: 30px 50%;">
+            <a href="/about">About</a>
+        </div>
+        <%- include ("./partials/popup"); %>
+        
+        <script type="text/javascript" src="js/index_js.js"></script> 
+    </body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Post</title>
+	    <link rel="stylesheet" href="/css/index_css.css">
+        <link rel="stylesheet" href="/css/viewpost.css">
+        <link rel="stylesheet" href="/css/lightbox.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+
+        <link rel="stylesheet" href="/venobox/venobox.css" type="text/css" media="screen" />
+        
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <script type="text/javascript" src="/js/lightbox-plus-jquery.min.js"></script>
+
+        <script type="text/javascript" src="/venobox/venobox.min.js"></script>
+        <script type="text/javascript" src="/js/post.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    </head>
+    <body>
+        <%if (isLoggedIn) { %>
+            <div class="bar">
+                <span class="logo"></span>
+                <span class="sitename">The Little Helper</span>
+                <span class="search_con">
+                    <form action="/generalfeed">   
+                        <input type="text" method="GET" name="search" placeholder=""></> 
+                        <button type="submit" value="Search">Search</button>
+                    </form>
+                </span>
+                <a href="/" class="home">HOME</a>
+                <a href="/logout" class="home">LOG-OUT</a>
+                <a href="/profile" class="profile"></a>
+            </div>
+        <% } else { %>
+            <div class="bar">
+                <span class="logo"></span>
+                <span class="sitename">The Little Helper</span>
+                <span class="search_con">
+                    <form action="/generalfeed">   
+                        <input type="text" method="GET" name="search" placeholder=""></> 
+                        <button type="submit" value="Search">Search</button>
+                    </form>  
+                </span>
+                <a href="/" class="home">HOME</a>
+                <a href="#" id="button2" class="home">LOG-IN</a>
+                <a href="#" id="button3" class="home">REGISTER</a>
+            </div>
+        <% } %>
+
+        <div class="viewpost_con">
+            <div class="viewpost_header">
+                <div class="viewpost_title">
+                    <%= post.title %>
+                </div>
+                <div class="viewpost_user">
+                    <div class="viewpost_userinfo">
+                        <img src="/images/budgetingcover.jpg" alt="baking" class="viewpost_profilepic">
+                        <a href="/profile">
+                            <span class="viewpost_name">
+                                <%= post.author %>
+                            </span> 
+                        </a>
+                    </div>
+                    <span> 
+                        
+                        <!-- if sa di nakalogin yung post
+                                remove both  button4 and 6 if di nakalogin-->
+                                <%if (isLoggedIn) { %>
+                                    <form action="/">
+                                        <div>
+                                            <button id="button6" formaction="/add-favorites/<%=post._id%>">
+                                                <span class="viewpost_favorite" data-id="<%=post._id%>">
+                                                    <i class="material-icons">
+                                                        star
+                                                    </i>
+                                                    <div class="favorite_text">
+                                                        FAVORITE
+                                                    </div>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </form>                         
+                                    <button id="button7">
+                                        <span class="viewpost_collection" >
+                                            <i class="material-icons">
+                                                save
+                                            </i>
+                                        <div class="collection_text">
+                                                ADD TO COLLECTION
+                                        </div>
+                                        </span>
+                                    </button>
+                                <% } %>               
+                    </span>  
+                </div>
+            </div>
+            <div class="viewpost_content">
+                <!-- if sa nakalogin yung post-->
+                <%if (isLoggedIn) { %>
+                <a href="#" id="button4">
+                    <span class="edit_post">
+                        <i class="material-icons">
+                            edit
+                        </i>
+                        <div class="favorite_text">
+                            EDIT POST
+                        </div>
+                    </span>
+                </a>
+                <% }%>
+                <div>
+                    <%= post.content %>
+                </div>
+
+                <div class="viewpost_con2">
+                    <div class="viewpost_gallery">
+                        <div class="viewpost_gallerytext">
+                            GALLERY       
+                        </div>
+                        
+                        <div class="gallery">
+                            <a href="/images/bakingcover.jpg" data-lightbox="mygallery" data-title="Title"><img src="/images/bakingcover.jpg"></a>
+                            <a href="/images/cookingcover.jpg" data-lightbox="mygallery" data-title="Title"><img src="/images/cookingcover.jpg"></a>
+                            <a href="/images/gardeningcover.jpg" data-lightbox="mygallery" data-title="Title"><img src="/images/gardeningcover.jpg"></a>
+                            <a href="/images/bakingcover.jpg" data-lightbox="mygallery" data-title="Title"><img src="/images/bakingcover.jpg"></a>
+                            <a href="/images/cookingcover.jpg" data-lightbox="mygallery" data-title="Title"><img src="/images/cookingcover.jpg"></a>
+                            <a href="/images/gardeningcover.jpg" data-lightbox="mygallery" data-title="Title"><img src="/images/gardeningcover.jpg"></a>
+                        </div>
+                    </div>
+                     <!--remove kung walang link input-->
+                    <span class="video">
+                        <div class="video_play">
+                            <a class="venobox" data-autoplay="true" data-vbtype="video" href="https://youtu.be/mrvWHfH5pm0"><button>WATCH VIDEO</button></a>
+                            <!--<video width="100%" controls>
+                                <source src="images/sample.mp4" type="video/mp4">
+                            </video>-->
+                        </div>    
+                    </span>
+
+                    <div class="viewpost_comment">
+                        <div class="viewpost_commenttext">
+                            COMMENTS
+                        </div>
+                        <%if (isLoggedIn) { %>
+                        <% comments.forEach(comment => { %>
+                            <!--
+                                <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#reply').click(function () {
+        
+                                        $("#reply_form").css('display','flex');
+                                        $("#edit").hide();
+                                        
+                                        $('#reply_submit').click(function () {
+                                            $("#reply_form").css('display','none');
+                                            $("#edit").show();
+                                        
+                                        });
+                                
+                                    });
+                                
+                                    $('#edit').click(function () {
+                                
+                                        $("#edit_form").css('display','flex');
+                                        $("#reply").hide();
+                                            
+                                        $('#edit_submit').click(function () {
+                                                $("#edit_form").css('display','none');
+                                                $("#reply").show();
+                                        });
+                                    
+                                    });
+                                });
+                            </script>
+                            -->
+                        <div class="view_comment" >
+                            <img src="/images/budgetingcover.jpg" alt="baking" class="viewcomment_profilepic">
+                            
+                            
+                            <div class="comment_con">
+                                <div class="viewcomment_text">
+                                        <div>
+                                            <a href="/profile" class="viewcomment_user"><%= comment.writer%></a>
+                                        </div>
+                                        <div>---</div>
+                                        <%= comment.content %></div>
+                                        <div class="break"></div>
+                                <button id="reply">
+                                    <div class="reply_icon">
+                                        <i class="material-icons">reply</i>
+                                    </div>
+                                </button>
+
+                                <button id="edit">
+                                    <div class="edit_icon">
+                                        <i class="material-icons">edit</i>
+                                    </div>
+                                </button>
+                        
+                                <div class="break"></div>
+                                <div id="reply_form" style="display: none;">
+                                    <form action="process.php">
+                                        <input type="text" placeholder="">              
+                                    </form>
+                                    <button type="submit" id="reply_submit">Reply</button>   
+                                    <a href="" id="button5">X</a>
+                                </div>    
+                                
+                                <div id="edit_form" style="display: none;">
+                                    <form action="process.php">
+                                        <input type="text" placeholder="">              
+                                    </form>
+                                    <button type="submit" id="edit_submit">Save</button>   
+                                    <a href="" id="button5">X</a>   
+                                </div>
+
+                            </div>
+                        </div>
+                        <% }) %>
+                        <div class="comment_form">
+                            <form action="/comment-form/<%= post._id%>" method="POST">
+                                <input type="text" name="comment" placeholder="">  
+                                <button type="submit" id="comment_submit">Comment</button>               
+                            </form>
+                        </div>
+                        <% } else { %>
+                            <% comments.forEach(comment => { %>
+                            <div class="view_comment" >
+                                <img src="/images/budgetingcover.jpg" alt="baking" class="viewcomment_profilepic">
+                                
+                                
+                                <div class="comment_con">
+                                    <div class="viewcomment_text">
+                                            <div>
+                                                <a href="/profile" class="viewcomment_user"><%= comment.writer%></a>
+                                            </div>
+                                            <div>---</div>
+                                            <a href="/profile" class="reply_user">@meiji</a><%= comment.content %></div>
+                                            <div class="break"></div>
+                                    </div>
+                            </div>
+                            <% }) %>                         
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include ("./partials/popup"); %>
+        <div class="bg_modal3">
+            <div class="modal_content">
+                <div class="close3">+</div>    
+                <form action="/post" class="post_form" id="post_form">
+                    <img src="/images/writing.png" alt="">
+
+                    <div class="form_control">
+                        <input type="text" placeholder="Title" required>
+                    </div>
+                    <div class="form_control">
+                        <textarea name="message" placeholder="Content"></textarea>    
+                    </div>
+                    <div class="form_control">
+                        <label for="img">Select image:</label>
+                        <input type="file" id="img" name="img" accept="image/*">
+                    </div>
+                    <div class="form_control">
+                        <label for="img">Select image:</label>
+                        <input type="file" id="img" name="img" accept="image/*">
+                    </div>
+                    <div class="form_control">
+                        <label for="img">Select image:</label>
+                        <input type="file" id="img" name="img" accept="image/*">
+                    </div>
+                    <div class="form_control">
+                        <label for="img">Select image:</label>
+                        <input type="file" id="img" name="img" accept="image/*">
+                    </div>
+                    <div class="form_control">
+                        <label for="img">Select image:</label>
+                        <input type="file" id="img" name="img" accept="image/*">
+                    </div>
+                    <div class="form_control">
+                        <input type="text" placeholder="Video link (Youtube)" required>
+                    </div>
+
+                    <div>
+                        <p><strong>Category</strong></p>
+                        <select id="category">
+                            <option value="cooking">Cooking</option>
+                            <option value="baking">Baking</option>
+                            <option value="sewing">Sewing</option>
+                            <option value="gardening">Gardening</option>
+                            <option value="budgeting">Budgeting</option>
+                        </select>
+                    </div>
+
+
+                    <!--
+                        <div class="form_control">
+                        <label for="video">Select video:</label>
+                        <input type="file" id="img" name="img" accept="video/*">
+                    </div>
+                    -->
+                    <!-- <a href="" class="button">Submit</a> -->
+                    <button type="submit">Submit</button> 
+                </form>
+            </div>
+        </div>
+        <div class="bg_modal4">
+            <div class="modal_content">
+                <div class="close4">+</div>    
+                <form action="/new-collection/<%= post._id%>" method="POST" class="collection_form" id="collection_form">
+
+                    <div class="form_control" id="newcoll">
+                        <input type="text" name="collectName" id="collectName" placeholder="New collection">
+                    </div>
+                    <button type="submit" id="collbutton">Submit</button> 
+                </form>
+                <form action="/old-collection/<%= post._id%>" method="GET" class="collection_form" id="collection_form">
+
+                    <div id="coll">
+                        <p><strong>Choose collection</strong></p>
+                        <select id="category">
+                            <option></option>
+                            <option value="collection1">Collection 1</option>
+                            <option value="collection2">Collection 2</option>
+                            <option value="collection3">Collection 3</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="collbutton">Submit</button> 
+                </form>
+                    <!--
+                        <div class="form_control">
+                        <label for="video">Select video:</label>
+                        <input type="file" id="img" name="img" accept="video/*">
+                    </div>
+                    -->
+                    <!-- <a href="" class="button">Submit</a> -->
+                    <div style="margin: 10px; text-decoration: underline;">
+                        <a href="#" id="button8">
+                            New collection
+                        </a>
+                    </div>
+                    
+                    <div style="margin: 10px; text-decoration: underline;">
+                        <a href="#" id="button9">
+                            Existing collection
+                        </a>
+                    </div>
+                    
+            </div>
+        </div>
+    </body>
+    
+</html>
