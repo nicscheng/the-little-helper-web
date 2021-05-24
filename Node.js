@@ -15,7 +15,7 @@ require('./config/passport')(passport);
 const dbURI = 'mongodb+srv://DeveloperOne:ilovepepper143@the-little-helper.9kzsf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((result) => app.listen(3000), console.log("Connection success!"))
+  .then((result) => app.listen(process.env.PORT || 3000), console.log("Connection success!"))
   .catch((err) => console.log(err));
 
 app.use(express.static(path.join(__dirname, '/public')));
