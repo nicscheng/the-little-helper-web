@@ -11,8 +11,8 @@ const app = express();
 require('./config/passport')(passport);
 
 // mongoDB
-const dbURI = 'mongodb://localhost:27017/the-little-helper';
-//const dbURI = 'mongodb+srv://DeveloperOne:ilovepepper143@the-little-helper.9kzsf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+//const dbURI = 'mongodb://localhost:27017/the-little-helper';
+const dbURI = 'mongodb+srv://DeveloperOne:ilovepepper143@the-little-helper.9kzsf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => app.listen(3000), console.log("Connection success!"))
