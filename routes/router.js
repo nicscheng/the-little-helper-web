@@ -394,6 +394,7 @@ router.post('/post-form', (req, res) => {
   post.img3 = req.body.img3;
   post.img4 = req.body.img4;
   post.img5 = req.body.img5;
+   post.link = req.body.url;
   post.postID = req.user._id;
   post.category = req.body.category;
   post.author = req.user.username;
