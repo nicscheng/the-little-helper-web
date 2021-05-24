@@ -238,7 +238,7 @@
                                                 <a href="/profile" class="viewcomment_user"><%= comment.writer%></a>
                                             </div>
                                             <div>---</div>
-                                            <a href="/profile" class="reply_user">@meiji</a><%= comment.content %></div>
+                                            <%= comment.content %></div>
                                             <div class="break"></div>
                                     </div>
                             </div>
@@ -282,7 +282,7 @@
                         <input type="file" id="img" name="img" accept="image/*">
                     </div>
                     <div class="form_control">
-                        <input type="text" placeholder="Video link (Youtube)" required>
+                        <input type="text" name="url" placeholder="Video link (Youtube)" required>
                     </div>
 
                     <div>
