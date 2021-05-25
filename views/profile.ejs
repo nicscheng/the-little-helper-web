@@ -227,8 +227,9 @@
                     <div class="user-details">
                         <div class="input-box">
                             <span class="avatar"><i class="fas fa-user"></i> Change Avatar</span>
-                            <input type="file" id="img" name="avatar" value="<%= user.avatar%>">
+                            <input type="file" id="img" name="avatar">
                         </div>
+                        <input type="hidden" name="old_avatar" value="<%= user.avatar%>">
                         <div class="input-box">
                             <span class="email"><i class="fas fa-envelope-open-text"></i> Email Address</span>
                             <h4><%= user.email %></h4>

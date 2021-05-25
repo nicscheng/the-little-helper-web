@@ -12,6 +12,7 @@ const controller = require('../controller/controller');
 //const { Collection } = require('mongoose');
 const Collection = require('../models/collection');
 const multer = require('multer');
+const fs = require('fs');
 
 
 /*router.get('/create-post', (req, res) => {
@@ -206,10 +207,26 @@ router.post('/edit-profile/:id',  upload.single('avatar'), (req, res) => {
   let user = {};
   user.username = req.body.username;
   user.bio = req.body.bio;
-  user.avatar = req.file.filename;
+  //user.avatar = req.file.filename;
   //console.log(user.body.password);
-
   let query = {_id: req.params.id}
+
+  if(req.file)
+  {
+    user.avatar = req.file.filename;
+    try
+    {
+      fs.unlinkSync('./uploads/' + req.body.old_avatar);
+    }
+    catch(err)
+    {
+      console.log(err);
+    }
+  }
+  else
+  {
+    user.avatar = req.body.old_avatar;
+  }
 
   User.updateOne(query, user, (err) => {
     if (err)
