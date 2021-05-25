@@ -66,7 +66,8 @@ $(document).ready(function() {
     $('#button7').click(function () {
         $(".bg_modal4").css('display','flex');
         
-        $("#collbutton").hide();
+        $("#newcollbutton").hide();
+        $("#oldcollbutton").hide();
         $("#newcoll").hide();
         $("#coll").hide();
         $("#button8").css('display','inline');
@@ -74,13 +75,13 @@ $(document).ready(function() {
 
         $('#button8').click(function () {
             $("#button9").css('display','none');
-            $("#collbutton").show();
+            $("#newcollbutton").show();
             $("#newcoll").show();
         });
 
         $('#button9').click(function () {
             $("#button8").css('display','none');
-            $("#collbutton").show();
+            $("#oldcollbutton").show();
             $("#coll").show();
         });
 
