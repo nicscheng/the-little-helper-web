@@ -119,12 +119,11 @@
                     <div class="profile-collections tab">
                         <div class="grid_con">
                             <div class="grid">
-                                <!--<% faves.forEach(post => { %>
+                                <% collects.forEach(collect => { %>
                                     <div class="post">
                                         <img src="images/bakingcover.jpg" alt="baking" class="post_image">
                                         <div class="post_content">
-                                            <p class="post_title"><%= post.title %></p>
-                                            <p class="post_desc"><%= post.content %></p>
+                                            <p class="post_title"><%= collect.collectName %></p>
                                         </div>
                                         <div class="post_info" style="background-color: lightgray;">
                                             <div>
@@ -133,10 +132,10 @@
                                                 </i>
                                                 300
                                             </div>
-                                            <a href="post/<%= post._id%>"  class="post_link">View Article</a>
+                                            <a href="/collections/<%=collect.collectName%>"  class="post_link">View Collection</a>
                                         </div>
                                     </div>
-                                    <% }) %>-->
+                                    <% }) %>
                                 
                             </div>
                         </div>
@@ -289,6 +288,9 @@
                     <button type="submit">Submit</button> 
                 </form>
             </div>
+        </div>
+        <div style="margin: 30px 50%;">
+            <a href="/about">About</a>
         </div>
         <script src="jquery/profile.js" type="text/javascript"></script>
         
