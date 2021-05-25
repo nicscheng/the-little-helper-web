@@ -398,7 +398,7 @@ router.get('/old-collection/:id', async(req, res) => {
   })
 });
 
-router.get('/post-form', (req, res) => {
+router.get('/post-form', upload.single('avatar'), (req, res) => {
   res.render('profile');
 });
 
@@ -407,11 +407,11 @@ router.post('/post-form', (req, res) => {
   post.title = req.body.title;
   post.content = req.body.content;
   post.link = req.body.link;
-  post.img1 = req.body.img1;
-  post.img2 = req.body.img2;
-  post.img3 = req.body.img3;
-  post.img4 = req.body.img4;
-  post.img5 = req.body.img5;
+  post.img1 = req.file.filename;
+  post.img2 = req.file.filename;
+  post.img3 = req.file.filename;
+  post.img4 = req.file.filename;
+  post.img5 = req.file.filename;
   post.postID = req.user._id;
   post.link = req.body.url;
   post.category = req.body.category;
