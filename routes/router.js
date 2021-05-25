@@ -117,14 +117,10 @@ router.post('/register', (req, res) => {
         });
 });
 
-router.get('/index2', (req, res) => {
-  res.render('index2');
-});
-
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/profile',
-    failureRedirect: ''
+    failureRedirect: '/error'
   })(req, res, next);
 });
 
