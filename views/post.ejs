@@ -100,16 +100,18 @@
             <div class="viewpost_content">
                 <!-- if sa nakalogin yung post-->
                 <%if (isLoggedIn) { %>
-                <a href="#" id="button4">
-                    <span class="edit_post">
-                        <i class="material-icons">
-                            edit
-                        </i>
-                        <div class="favorite_text">
-                            EDIT POST
-                        </div>
-                    </span>
-                </a>
+                    <%if(post.author == user.username) {%>
+                    <a href="#" id="button4">
+                        <span class="edit_post">
+                            <i class="material-icons">
+                                edit
+                            </i>
+                            <div class="favorite_text">
+                                EDIT POST
+                            </div>
+                        </span>
+                    </a>
+                    <% }%>
                 <% }%>
                 <div>
                     <%= post.content %>
