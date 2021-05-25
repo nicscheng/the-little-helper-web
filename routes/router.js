@@ -124,7 +124,7 @@ router.get('/index2', (req, res) => {
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/profile',
-    failureRedirect: '/'
+    failureRedirect: '/error'
   })(req, res, next);
 });
 
