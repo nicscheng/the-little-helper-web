@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const collectSchema = mongoose.Schema({
     collectName: {
         type: String,
-        //required: true
+        required: true
     },
     collector: { 
         type: String
