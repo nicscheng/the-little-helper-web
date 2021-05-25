@@ -193,6 +193,40 @@ router.post('/edit-profile/:id', (req, res) => {
   });
 });
 
+router.get('/edit-post/:id', (req, res) => {
+  Post.findById(req.params.id, (err, post) => {
+    res.render('post', {
+      post:post
+    });
+  });
+});
+
+router.post('/edit-post/:id', (req, res) => {
+  let post = {};
+  post.title = req.body.title;
+  post.content = req.body.content;
+  post.img1 = req.body.img1;
+  post.img2 = req.body.img2;
+  post.img3 = req.body.img3;
+  post.img4 = req.body.img4;
+  post.img5 = req.body.img5;
+  post.link = req.body.link;
+  post.category = req.body.category;
+
+  let query = {_id: req.params.id}
+
+  Post.updateOne(query, post, (err) => {
+    if(err)
+    {
+      console.log(err);
+      return;
+    }
+    else{
+      res.redirect(`/post/${req.params.id}`);
+    }
+  });
+});
+
  router.get('/delete-account/:id', (req, res) => {
   User.findById(req.params.id, (err, user) => {
     res.render('profile', {
@@ -394,8 +428,8 @@ router.post('/post-form', (req, res) => {
   post.img3 = req.body.img3;
   post.img4 = req.body.img4;
   post.img5 = req.body.img5;
-  post.link = req.body.link;
   post.postID = req.user._id;
+  post.link = req.body.url;
   post.category = req.body.category;
   post.author = req.user.username;
   title = post.title;
@@ -556,10 +590,12 @@ router.get('/generalfeed', isLoggedIn, async(req, res) => {
 router.get('/post/:id', isLoggedIn, async(req, res) => {
 
   const comments = await Comment.find({postID:[req.params.id]})
+  //const user = req.user.username;
 
   Post.findOne({"_id": ObjectID(req.params.id)}, (err, post) => {
     res.render('post', {
-      post:post, isLoggedIn: req.isLogged, comments:comments
+      post:post, isLoggedIn: req.isLogged, comments:comments,
+      user:req.user
     });
   });
 
