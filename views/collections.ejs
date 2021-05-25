@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Feed</title>
+	    <link rel="stylesheet" href="/css/feed.css">
+        <link rel="stylesheet" href="/css/index_css.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <% if(isLoggedIn) { %>
+        <div class="bar">
+            <span class="logo"></span>
+            <span class="sitename">The Little Helper</span>
+            <span class="search_con">
+                <form action="/generalfeed">   
+                    <input type="text" method="GET" name="search" placeholder=""></> 
+                    <button type="submit" value="Search">Search</button>
+                </form>
+            </span>
+            <a href="/" class="home">HOME</a>
+            <a href="/logout" class="home">LOG-OUT</a>
+            <a href="/profile" class="profile"></a>
+        </div> 
+    <% } else { %>
+            <div class="bar">
+        
+                <span class="logo"></span>
+                <span class="sitename">The Little Helper</span>
+                <span class="search_con">
+                    <form action="/generalfeed">   
+                        <input type="text" method="GET" name="search" placeholder=""></> 
+                        <button type="submit" value="Search">Search</button>
+                    </form>
+                </span>
+                <a href="/" class="home">HOME</a>
+                <a href="#" id="button2" class="home">LOG-IN</a>
+                <a href="#" id="button3" class="home">REGISTER</a>
+            </div> 
+    <% } %>
+    <!-- ito yung panglagay ng collection name -->
+    <span class="collection-name"><h1><%= collects[0].collectName%></h1></span>
+    <div style="padding: 50px;">
+        <div class="grid">
+            <% collects.forEach(collect => { %>
+            <div class="post">
+                <img src="/images/bakingcover.jpg" alt="baking" class="post_image">
+                <div class="post_content">
+                    <p class="post_title"><%= collect.title %></p>
+                    <p class="post_desc"><%= collect.content %></p>
+                </div>
+                <div class="post_info" style="background-color: lightgray;">
+                    <div>
+                        <i class="material-icons">
+                            star
+                        </i>
+                        300
+                    </div>
+                    <a href="/post/<%=collect.postID%>" class="post_link">View Article</a>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+    <div style="margin: 30px 50%;">
+        <a href="/about">About</a>
+    </div>
+    <%- include ("./partials/popup"); %>
+    <script type="text/javascript" src="/js/index_js.js"></script>
+</body>
+</html>
