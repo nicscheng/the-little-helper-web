@@ -11,6 +11,20 @@ const ObjectID = require('mongodb').ObjectID;
 const controller = require('../controller/controller');
 //const { Collection } = require('mongoose');
 const Collection = require('../models/collection');
+const multer = require('multer');
+
+var storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb('null', './uploads');
+  },
+  filename: function(req, file, cb){
+    cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+  },
+});
+
+var upload = multer({
+  storage:storage
+}). single('image');
 
 /*router.get('/create-post', (req, res) => {
 
@@ -65,8 +79,9 @@ router.get('/logout', (req, res) => {
 
 router.get('/register', (req, res) => res.render('index'));
 
-router.post('/register', (req, res) => {
-    const {username, password, avatar, email, bio} = req.body;
+router.post('/register', upload, (req, res) => {
+    const {username, password, email, bio} = req.body;
+    const avatar = req.file.filename;
     let errors = [];
 
     if(!username || !password || !email || !bio)
