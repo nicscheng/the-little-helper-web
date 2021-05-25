@@ -133,7 +133,7 @@
                      <!--remove kung walang link input-->
                     <span class="video">
                         <div class="video_play">
-                            <a class="venobox" data-autoplay="true" data-vbtype="video" href="https://youtu.be/mrvWHfH5pm0"><button>WATCH VIDEO</button></a>
+                            <a class="venobox" data-autoplay="true" data-vbtype="video" href="<%=post.url%>"><button>WATCH VIDEO</button></a>
                             <!--<video width="100%" controls>
                                 <source src="images/sample.mp4" type="video/mp4">
                             </video>-->
@@ -188,7 +188,7 @@
                                         <div>---</div>
                                         <%= comment.content %></div>
                                         <div class="break"></div>
-                                <button id="reply">
+                                <!--<button id="reply">
                                     <div class="reply_icon">
                                         <i class="material-icons">reply</i>
                                     </div>
@@ -215,7 +215,7 @@
                                     </form>
                                     <button type="submit" id="edit_submit">Save</button>   
                                     <a href="" id="button5">X</a>   
-                                </div>
+                                </div>-->
 
                             </div>
                         </div>
@@ -238,7 +238,7 @@
                                                 <a href="/profile" class="viewcomment_user"><%= comment.writer%></a>
                                             </div>
                                             <div>---</div>
-                                            <a href="/profile" class="reply_user">@meiji</a><%= comment.content %></div>
+                                            <%= comment.content %></div>
                                             <div class="break"></div>
                                     </div>
                             </div>
@@ -252,42 +252,42 @@
         <div class="bg_modal3">
             <div class="modal_content">
                 <div class="close3">+</div>    
-                <form action="/post" class="post_form" id="post_form">
+                <form action="/edit-post/<%=post._id%>" method="POST" class="post_form" id="post_form">
                     <img src="/images/writing.png" alt="">
 
                     <div class="form_control">
-                        <input type="text" placeholder="Title" required>
+                        <input type="text" name="title" value="<%=post.title%>">
                     </div>
                     <div class="form_control">
-                        <textarea name="message" placeholder="Content"></textarea>    
-                    </div>
-                    <div class="form_control">
-                        <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img" accept="image/*">
+                        <textarea name="message" name="content" value="<%=post.content%>"><%=post.content%></textarea>    
                     </div>
                     <div class="form_control">
                         <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img" accept="image/*">
+                        <input type="file" id="img" name="img1" accept="image/*">
                     </div>
                     <div class="form_control">
                         <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img" accept="image/*">
+                        <input type="file" id="img" name="img2" accept="image/*">
                     </div>
                     <div class="form_control">
                         <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img" accept="image/*">
+                        <input type="file" id="img" name="img3" accept="image/*">
                     </div>
                     <div class="form_control">
                         <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img" accept="image/*">
+                        <input type="file" id="img" name="img4" accept="image/*">
                     </div>
                     <div class="form_control">
-                        <input type="text" placeholder="Video link (Youtube)" required>
+                        <label for="img">Select image:</label>
+                        <input type="file" id="img" name="img5" accept="image/*">
+                    </div>
+                    <div class="form_control">
+                        <input type="text" name="link" value="<%=post.link%>">
                     </div>
 
                     <div>
                         <p><strong>Category</strong></p>
-                        <select id="category">
+                        <select id="category" name="category">
                             <option value="cooking">Cooking</option>
                             <option value="baking">Baking</option>
                             <option value="sewing">Sewing</option>
