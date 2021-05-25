@@ -55,6 +55,26 @@
         </div>
     </div>
     <div class="grid_con">
+        <div class="searchgen">
+            <span>
+                <a href="/generalfeed" style="margin-left: -200px; margin-right: 18px ;">SEE ALL POSTS</a>
+                |
+            </span>
+                
+            <span>
+                <a href="/generalprof" id="button10"style="margin-left: -20px;">SEARCH PROFILE</a>
+            </span>
+            
+            <span class="search_prof" style="display: none;">
+                <form action="/generalprof">   
+                    <input type="text" method="GET" name="search" placeholder=""></> 
+                    <a href="" id="close5">X</a>
+                    <button type="submit" id="button11"value="Search">Search</button>
+                   
+                </form>
+                 
+            </span>
+        </div>
         <div class="grid">
             <% posts.forEach(post => { %>
                 <div class="post">
