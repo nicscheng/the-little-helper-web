@@ -1,0 +1,51 @@
+<div class="bg_modal">
+    <div class="modal_content">
+        <div class="close">+</div>    
+        <form action="/login" method= "POST" class="login_form" id="login_form">
+            <img src="/images/log-in2.png" alt="">
+            <div class="form_control">
+                <input type="email" id="email" name ="email" placeholder="Email" required>
+                <small></small>
+            </div>
+            <div class="form_control">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <small></small>
+            </div>
+
+            <div class="remember">
+                <input type="checkbox" id="rememberme">
+                <label for="rememberme">Remember me</label>
+            </div>
+            
+            <button type="submit">Submit</button> 
+            
+        </form>
+    </div>
+</div>
+<div class="bg_modal2">
+    <div class="modal_content">
+        <div class="close2">+</div>    
+        <form action="/register" method="POST" class="reg_form" id="reg_form">
+            <img src="/images/register2.png" alt="">
+
+            <div class="form_control">
+                <input type="email" placeholder="Email" name="email" required>
+            </div>
+            <div class="form_control">
+                <input type="text" placeholder="Username" name="username" required>
+            </div>
+            <div class="form_control">
+                <input type="password" placeholder="Password" name="password" required>
+            </div>
+            <div class="form_control">
+                <label for="img">Select avatar:</label>
+                <input type="file" id="img" name="img" accept="image/*">
+            </div>
+            <div class="form_control">
+                <textarea type="text" placeholder="Short description" name="bio"></textarea>
+            </div>
+            <!-- <a href="" class="button">Submit</a> -->
+            <button type="submit">Submit</button> 
+        </form>
+    </div>
+</div>
