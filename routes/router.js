@@ -13,18 +13,6 @@ const controller = require('../controller/controller');
 const Collection = require('../models/collection');
 const multer = require('multer');
 
-var storage = multer.diskStorage({
-  destination: function(req, file, cb){
-    cb('null', './uploads');
-  },
-  filename: function(req, file, cb){
-    cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
-  },
-});
-
-var upload = multer({
-  storage:storage
-}). single('image');
 
 /*router.get('/create-post', (req, res) => {
 
@@ -79,7 +67,18 @@ router.get('/logout', (req, res) => {
 
 router.get('/register', (req, res) => res.render('index'));
 
-router.post('/register', upload, (req, res) => {
+const uploadStorage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null, 'public/uploads');
+  },
+  filename: function(req, file, cb){
+    cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+  }
+});
+
+const upload = multer({storage:uploadStorage});
+
+router.post('/register', upload.single('avatar'), (req, res) => {
     const {username, password, email, bio} = req.body;
     const avatar = req.file.filename;
     let errors = [];
@@ -203,11 +202,11 @@ router.get('/edit-profile/:id', (req, res) => {
   });
 });
 
-router.post('/edit-profile/:id', (req, res) => {
+router.post('/edit-profile/:id',  upload.single('avatar'), (req, res) => {
   let user = {};
   user.username = req.body.username;
   user.bio = req.body.bio;
-  user.avatar = req.body.avatar;
+  user.avatar = req.file.filename;
   //console.log(user.body.password);
 
   let query = {_id: req.params.id}

@@ -25,7 +25,7 @@
 <div class="bg_modal2">
     <div class="modal_content">
         <div class="close2">+</div>    
-        <form action="/register" method="POST" class="reg_form" id="reg_form">
+        <form action="/register" method="POST" class="reg_form" id="reg_form" enctype="multipart/form-data">
             <img src="/images/register2.png" alt="">
 
             <div class="form_control">
@@ -39,7 +39,7 @@
             </div>
             <div class="form_control">
                 <label for="img">Select avatar:</label>
-                <input type="file" id="img" name="image" accept="image/*">
+                <input type="file" id="img" name="avatar">
             </div>
             <div class="form_control">
                 <textarea type="text" placeholder="Short description" name="bio"></textarea>

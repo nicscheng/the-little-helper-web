@@ -48,7 +48,7 @@
         <div class="container">
             <div class="profile-header">
                 <div class="profile-img">
-                    <img src = "images/art.jpg" width="200">
+                    <img src = "<%=user.avatar%>" width="200">
                 </div>
             </div>
             <div class="info-border">
@@ -223,11 +223,11 @@
             <div class="modal-content">
                 <div class="close">+</div>
                 <img src = "images/profile.png" width="200">
-                <form action="/edit-profile/<%=user._id%>" method="POST">
+                <form action="/edit-profile/<%=user._id%>" method="POST" enctype="multipart/form-data">
                     <div class="user-details">
                         <div class="input-box">
                             <span class="avatar"><i class="fas fa-user"></i> Change Avatar</span>
-                            <input type="file" id="img" name="img" accept="image/*">
+                            <input type="file" id="img" name="avatar" value="<%= user.avatar%>">
                         </div>
                         <div class="input-box">
                             <span class="email"><i class="fas fa-envelope-open-text"></i> Email Address</span>

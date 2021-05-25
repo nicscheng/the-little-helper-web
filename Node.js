@@ -18,8 +18,10 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => app.listen(process.env.PORT || 3000), console.log("Connection success!"))
   .catch((err) => console.log(err));
 
+app.use(express.json());
 app.use(express.static(path.join(__dirname, '/public')));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public/uploads'));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/venobox'));
 app.use(express.static(__dirname + '/webfonts'));
 app.set('view engine', 'ejs');
