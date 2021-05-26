@@ -423,9 +423,9 @@ router.post('/delete-collection/:id', async (req, res) => {
     {
       res.status(500).send();
     }
-    let query = req.params.id;
+    //let query = req.params.id;
     //const user = await User.findById(req.params.id);
-    const remove = await Collection.findByIdAndRemove(query);
+    const remove = await Collection.findByIdAndRemove(req.params.id);
     if (remove) 
     {
       res.redirect('/profile');
@@ -498,7 +498,7 @@ router.get('/old-collection/:id', async(req, res) => {
   })
 });
 
-router.get('/post-form', upload.single('avatar'), (req, res) => {
+router.get('/post-form', (req, res) => {
   res.render('profile');
 });
 
@@ -507,11 +507,11 @@ router.post('/post-form', (req, res) => {
   post.title = req.body.title;
   post.content = req.body.content;
   post.link = req.body.link;
-  post.img1 = req.file.filename;
-  post.img2 = req.file.filename;
-  post.img3 = req.file.filename;
-  post.img4 = req.file.filename;
-  post.img5 = req.file.filename;
+  //post.img1 = req.file.filename;
+  //post.img2 = req.file.filename;
+  //post.img3 = req.file.filename;
+  //post.img4 = req.file.filename;
+  //post.img5 = req.file.filename;
   post.postID = req.user._id;
   post.link = req.body.url;
   post.category = req.body.category;
