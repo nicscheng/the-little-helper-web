@@ -306,6 +306,52 @@ router.post('/edit-post/:id', (req, res) => {
 
 });
 
+router.get('/userprofile/:user', isLoggedIn, async(req, res) => {
+  if(req.query.search) {
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    const allPosts = await Post.find({title: regex})
+    const likedPosts = await Like.find({liker:[req.params.user]})
+    const collectPosts = await Collection.find({collector:[req.params.user]})
+    const users = await User.find({username:[req.params.user]});
+
+    res.render('generalfeed', {
+      users: users, isLoggedIn: req.isLogged,
+      posts: allPosts, faves: likedPosts,
+      collects: collectPosts
+    });
+  }
+
+  if(req.query.search2){
+    const users = await User.findOne({username:[req.params.user]})
+    const regex = new RegExp(escapeRegex(req.query.search2), 'gi');
+    const allPosts = await Post.find({title: regex, author: [req.params.user]})
+    const likedPosts = await Like.find({liker:[req.params.user]})
+    const collectPosts = await Collection.find({collector:[req.params.user]})
+    console.log(users);
+
+    res.render('userprofile', {
+      users: users, isLoggedIn: req.isLogged,
+      posts: allPosts, faves: likedPosts,
+      collects: collectPosts
+    });
+  }
+  else{
+    const users = await User.findOne({username:[req.params.user]})
+    const allPosts = await Post.find({author:[req.params.user]})
+    const likedPosts = await Like.find({liker:[req.params.user]})
+    const collectPosts = await Collection.find({collector:[req.params.user]})
+
+    //console.log(users.username);
+
+    res.render('userprofile', {
+      users: users, isLoggedIn: req.isLogged,
+      posts: allPosts, faves: likedPosts,
+      collects: collectPosts
+    });   
+  }
+})
+
+
 router.get('/generalprof', isLoggedIn, async(req, res) => {
   if(req.query.search) {
       const regex = new RegExp(escapeRegex(req.query.search), 'gi');
@@ -354,6 +400,42 @@ router.get('/add-favorites/:id', async(req, res) => {
       res.redirect(`/post/${req.params.id}`);
     }
   })
+});
+
+router.get('/delete-collection/:id', isLoggedIn, async(req, res) => {
+  const allPosts = await Post.find({author:[req.user.username]})
+  const likedPosts = await Like.find({liker:[req.user.username]})
+  const collectPosts = await Collection.find({collector:[req.user.username]})
+
+  Collection.findById(req.params.id, (err, collect) => {
+    res.render('profile', {
+      user: req.user, isLoggedIn: req.isLogged,
+      posts: allPosts, faves: likedPosts,
+      collects: collectPosts
+    });
+  });
+});
+
+router.post('/delete-collection/:id', async (req, res) => {
+  try 
+  {
+    if (!req.user._id)
+    {
+      res.status(500).send();
+    }
+    let query = req.params.id;
+    //const user = await User.findById(req.params.id);
+    const remove = await Collection.findByIdAndRemove(query);
+    if (remove) 
+    {
+      res.redirect('/profile');
+    }
+  } 
+  catch (e)
+  {
+    res.send(e);
+  }
+
 });
 
 router.get('/new-collection/:id', (req, res) => {
@@ -514,51 +596,6 @@ router.get('/post/:id', isLoggedIn, async(req, res) => {
       user:req.user, collectNames:collectNames
     });
   });
-
-router.get('/userprofile/:user', isLoggedIn, async(req, res) => {
-    if(req.query.search) {
-      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-      const allPosts = await Post.find({title: regex})
-      const likedPosts = await Like.find({liker:[req.params.user]})
-      const collectPosts = await Collection.find({collector:[req.params.user]})
-      const users = await User.find({username:[req.params.user]});
-  
-      res.render('generalfeed', {
-        users: users, isLoggedIn: req.isLogged,
-        posts: allPosts, faves: likedPosts,
-        collects: collectPosts
-      });
-    }
-  
-    if(req.query.search2){
-      const users = await User.find({username:[req.params.user]})
-      const regex = new RegExp(escapeRegex(req.query.search2), 'gi');
-      const allPosts = await Post.find({title: regex, author: [req.params.user]})
-      const likedPosts = await Like.find({liker:[req.params.user]})
-      const collectPosts = await Collection.find({collector:[req.params.user]})
-      console.log(users);
-
-      res.render('userprofile', {
-        users: users, isLoggedIn: req.isLogged,
-        posts: allPosts, faves: likedPosts,
-        collects: collectPosts
-      });
-    }
-    else{
-      const users = await User.findOne({username:[req.params.user]})
-      const allPosts = await Post.find({author:[req.params.user]})
-      const likedPosts = await Like.find({liker:[req.params.user]})
-      const collectPosts = await Collection.find({collector:[req.params.user]})
-  
-      console.log(users.username);
-
-      res.render('userprofile', {
-        users: users, isLoggedIn: req.isLogged,
-        posts: allPosts, faves: likedPosts,
-        collects: collectPosts
-      });   
-    }
-  })
 
 
   /*if(req.query.search) {
