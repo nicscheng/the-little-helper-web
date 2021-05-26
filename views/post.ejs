@@ -101,16 +101,27 @@
                 <!-- if sa nakalogin yung post-->
                 <%if (isLoggedIn) { %>
                     <%if(post.author == user.username) {%>
-                    <a href="#" id="button4">
-                        <span class="edit_post">
-                            <i class="material-icons">
-                                edit
-                            </i>
-                            <div class="favorite_text">
-                                EDIT POST
-                            </div>
-                        </span>
-                    </a>
+                        <div style="display: flex;">
+                            <a href="#" id="button4">
+                                <span class="edit_post">
+                                    <i class="material-icons">
+                                        edit
+                                    </i>
+                                    <div class="favorite_text">
+                                        EDIT POST
+                                    </div>
+                                </span>
+                            </a>
+                            <button class="edit_post" style="background-color: black; color: white; font-size: 0.8em;">
+                                <i class="material-icons">
+                                    delete
+                                </i>
+                                <span class="favorite_text">
+                                    DELETE POST
+                                </span>
+                            </button>
+                        </div>
+                    
                     <% }%>
                 <% }%>
                 <div>
@@ -132,14 +143,16 @@
                             <a href="/images/gardeningcover.jpg" data-lightbox="mygallery" data-title="Title"><img src="/images/gardeningcover.jpg"></a>
                         </div>
                         <!--remove kung walang link input-->
-                    <span class="video">
-                        <div class="video_play">
-                            <a class="venobox" data-autoplay="true" data-vbtype="video" href="<%=post.url%>"><button>WATCH VIDEO</button></a>
-                            <!--<video width="100%" controls>
-                                <source src="images/sample.mp4" type="video/mp4">
-                            </video>-->
-                        </div>    
-                    </span>
+                        <% if(post.link != null) { %>
+                        <span class="video">
+                            <div class="video_play">
+                                <a class="venobox" data-autoplay="true" data-vbtype="video" href="<%=post.link%>"><button>WATCH VIDEO</button></a>
+                                <!--<video width="100%" controls>
+                                    <source src="images/sample.mp4" type="video/mp4">
+                                </video>-->
+                            </div>    
+                        </span>
+                        <% } %>
                     </div>
 
                     <div class="viewpost_comment">

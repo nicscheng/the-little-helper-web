@@ -76,7 +76,7 @@
     margin-right: 25px;
 }
 
-.viewpost_content .edit_post i {
+.edit_post i {
     font-size: 1.8em;
     margin-right: 0px;
 }
@@ -118,6 +118,7 @@
 }
 
 .favorite_text{
+    font-family: 'Josefin Sans', sans-serif;
     margin-bottom: -4px;
     margin-left: 10px;
 }
