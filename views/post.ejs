@@ -58,7 +58,7 @@
                 <div class="viewpost_user">
                     <div class="viewpost_userinfo">
                         <img src="/images/budgetingcover.jpg" alt="baking" class="viewpost_profilepic">
-                        <a href="/profile">
+                        <a href="/userprofile/<%= post.author%>">
                             <span class="viewpost_name">
                                 <%= post.author %>
                             </span> 
@@ -237,7 +237,7 @@
                                 <div class="comment_con">
                                     <div class="viewcomment_text">
                                             <div>
-                                                <a href="/profile" class="viewcomment_user"><%= comment.writer%></a>
+                                                <a href="/userprofile/<%= comment.writer%>" class="viewcomment_user"><%= comment.writer%></a>
                                             </div>
                                             <div>---</div>
                                             <%= comment.content %></div>

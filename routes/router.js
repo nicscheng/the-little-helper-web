@@ -195,6 +195,7 @@ router.get('/collections/:collectName', isLoggedIn, async(req, res) => {
   });
 });
 
+
 router.get('/edit-profile/:id', (req, res) => {
   User.findById(req.params.id, (err, user) => {
     res.render('profile', {
@@ -499,6 +500,7 @@ router.get('/generalfeed', isLoggedIn, async(req, res) => {
 
 });
 
+
 router.get('/post/:id', isLoggedIn, async(req, res) => {
 
   const comments = await Comment.find({postID:[req.params.id]})
@@ -512,6 +514,52 @@ router.get('/post/:id', isLoggedIn, async(req, res) => {
       user:req.user, collectNames:collectNames
     });
   });
+
+router.get('/userprofile/:user', isLoggedIn, async(req, res) => {
+    if(req.query.search) {
+      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+      const allPosts = await Post.find({title: regex})
+      const likedPosts = await Like.find({liker:[req.params.user]})
+      const collectPosts = await Collection.find({collector:[req.params.user]})
+      const users = await User.find({username:[req.params.user]});
+  
+      res.render('generalfeed', {
+        users: users, isLoggedIn: req.isLogged,
+        posts: allPosts, faves: likedPosts,
+        collects: collectPosts
+      });
+    }
+  
+    if(req.query.search2){
+      const users = await User.find({username:[req.params.user]})
+      const regex = new RegExp(escapeRegex(req.query.search2), 'gi');
+      const allPosts = await Post.find({title: regex, author: [req.params.user]})
+      const likedPosts = await Like.find({liker:[req.params.user]})
+      const collectPosts = await Collection.find({collector:[req.params.user]})
+      console.log(users);
+
+      res.render('userprofile', {
+        users: users, isLoggedIn: req.isLogged,
+        posts: allPosts, faves: likedPosts,
+        collects: collectPosts
+      });
+    }
+    else{
+      const users = await User.findOne({username:[req.params.user]})
+      const allPosts = await Post.find({author:[req.params.user]})
+      const likedPosts = await Like.find({liker:[req.params.user]})
+      const collectPosts = await Collection.find({collector:[req.params.user]})
+  
+      console.log(users.username);
+
+      res.render('userprofile', {
+        users: users, isLoggedIn: req.isLogged,
+        posts: allPosts, faves: likedPosts,
+        collects: collectPosts
+      });   
+    }
+  })
+
 
   /*if(req.query.search) {
     //const{title} = req.query;
@@ -558,6 +606,7 @@ router.get('/baking', isLoggedIn, async(req, res) => {
 router.get('/error', (req, res) => {
   res.render('error');
 });
+
 router.get('/about', isLoggedIn, (req, res) => {
   res.render('about',{
     user: req.user, isLoggedIn: req.isLogged,
