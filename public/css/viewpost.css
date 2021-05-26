@@ -17,10 +17,25 @@
     border-radius: 20px 20px 0 0;
 }
 
+
+
 .viewpost_title{ 
     font-size: 4em;
     width: 60vw;
 }
+
+/*
+.viewpost_title:first-letter{
+    font-size: 100px;
+    background-color: none;
+    padding: 20px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50% 50%;
+    border: 10px solid black;
+}
+*/
+
 
 .viewpost_user{
     display: flex;
