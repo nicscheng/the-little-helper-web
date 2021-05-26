@@ -71,7 +71,8 @@
                                 <%if (isLoggedIn) { %>
                                     <form action="/">
                                         <div>
-                                            <button id="button6" formaction="/add-favorites/<%=post._id%>">
+                                            <%if(count > 0) {%>
+                                            <button id="button6" formaction="/add-favorites/<%=post._id%>" disabled>
                                                 <span class="viewpost_favorite" data-id="<%=post._id%>">
                                                     <i class="material-icons">
                                                         star
@@ -81,6 +82,18 @@
                                                     </div>
                                                 </span>
                                             </button>
+                                            <% } else { %>
+                                                <button id="button6" formaction="/add-favorites/<%=post._id%>">
+                                                    <span class="viewpost_favorite" data-id="<%=post._id%>">
+                                                        <i class="material-icons">
+                                                            star
+                                                        </i>
+                                                        <div class="favorite_text">
+                                                            FAVORITE
+                                                        </div>
+                                                    </span>
+                                                </button>
+                                            <% } %>               
                                         </div>
                                     </form>                         
                                     <button id="button7">

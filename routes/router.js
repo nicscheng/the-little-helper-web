@@ -342,8 +342,6 @@ router.get('/userprofile/:user', isLoggedIn, async(req, res) => {
     const likedPosts = await Like.find({liker:[req.params.user]})
     const collectPosts = await Collection.find({collector:[req.params.user]})
 
-    console.log(users.avatar);
-
     res.render('userprofile', {
       users: users, isLoggedIn: req.isLogged,
       posts: allPosts, faves: likedPosts,
@@ -382,6 +380,7 @@ router.get('/add-favorites/:id', async(req, res) => {
   like.liker = req.user.username;
   like.postID = query;
   const liked = await Post.findById(req.params.id);
+  //const likedLength = await Post.find({'_id': ObjectID(req.params.id)});
 
   like.title = liked.title;
   like.content = liked.content;
@@ -390,17 +389,18 @@ router.get('/add-favorites/:id', async(req, res) => {
 
   //console.log("favorites");
 
-  likes.save((err, likes) => {
-    if(err)
-    {
-      console.log(err);
-      return;
-    }
-    else
-    {
-      res.redirect(`/post/${req.params.id}`);
-    }
-  })
+    likes.save((err, likes) => {
+      if(err)
+      {
+        console.log(err);
+        return;
+      }
+      else
+      {
+        res.redirect(`/post/${req.params.id}`);
+      }
+    })
+
 });
 
 /*router.get('/delete-collection/:id', isLoggedIn, async(req, res) => {
@@ -615,17 +615,31 @@ router.get('/post/:id', isLoggedIn, async(req, res) => {
 
   const comments = await Comment.find({postID:[req.params.id]})
   const collectNames = await Collection.distinct("collectName");
-  //const user = req.user.username;
+  //const likedLength = await Like.find({'_id': ObjectID(req.params.id)});
+  const likedLength = await Like.find({'postID': ObjectID(req.params.id)});
 
-  console.log(collectNames);
+  var count = 0, i = 0;
+
+  //const user = req.user.username;
+ // if (likedLength.liker == )
+
+ for (; i < likedLength.length; ) {
+    if (likedLength[i].liker == req.user.username)
+    {
+      count++;
+      i++;
+    }
+ }
+ 
+  console.log(likedLength);
   Post.findOne({"_id": ObjectID(req.params.id)}, (err, post) => {
     res.render('post', {
       post:post, isLoggedIn: req.isLogged, comments:comments,
-      user:req.user, collectNames:collectNames
+      user:req.user, collectNames:collectNames, count:count
     });
   });
 
-  
+
 router.get('/delete-post/:id', async(req, res) => {
   try 
   {

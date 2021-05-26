@@ -58,11 +58,11 @@
 
     <div style="padding: 50px;">
         <div class="grid">
-            <% users.forEach(user => { %>
+            <% users.forEach(userprof => { %>
             <div class="profile_search" >
                 <div class="profile_search_img">
                     <div class="psi_text">
-                        <%= user.username %>
+                        <%= userprof.username %>
                     </div>
                 </div>
 
@@ -73,10 +73,15 @@
                 <!--
                     if may inuplaod na dp
                     <img src="images/bakingcover.jpg" alt="user" class="profile_search_img" style="background-color: none;"> -->
-                <a href="/userprofile/<%= user.username%>" class="post_content" style="background-color: none;">
-                    <p class="post_title" ><%= user.username %></p>
+                <% if(userprof.username == user.username) { %>
+                <a href="/userprofile/<%= userprof.username%>" class="post_content" style="background-color: none;">
+                    <p class="post_title" ><%= userprof.username %></p>
                 </a>
-                
+                <% } else { %>
+                    <a href="/profile" class="post_content" style="background-color: none;">
+                        <p class="post_title" ><%= userprof.username %></p>
+                    </a>
+                <% } %>
             </div>
             <% }) %>
         </div>
