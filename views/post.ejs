@@ -57,10 +57,10 @@
                 </div>
                 <div class="viewpost_user">
                     <div class="viewpost_userinfo">
-                        <img src="/images/budgetingcover.jpg" alt="baking" class="viewpost_profilepic">
+                        Posted by: 
                         <a href="/userprofile/<%= post.author%>">
                             <span class="viewpost_name">
-                                <%= post.author %>
+                                <span style="text-decoration: underline;"><%= post.author %></span>
                             </span> 
                         </a>
                     </div>
@@ -127,12 +127,13 @@
                     
                     <% }%>
                 <% }%>
-                <div>
+                <div style="margin-top: 10px;">
                     <%= post.content %>
                 </div>
 
                 <div class="viewpost_con2">
                     <div class="viewpost_gallery">
+                        
                         <div class="viewpost_gallerytext">
                             GALLERY       
                         </div>
@@ -195,8 +196,10 @@
                             </script>
                             -->
                         <div class="view_comment" >
-                            <img src="/images/budgetingcover.jpg" alt="baking" class="viewcomment_profilepic">
-                            
+
+                            <i class="material-icons" style="font-size: 50px; width: 10px; margin-left: -20px;">
+                                arrow_right
+                            </i>
                             
                             <div class="comment_con">
                                 <div class="viewcomment_text">
@@ -246,9 +249,11 @@
                         </div>
                         <% } else { %>
                             <% comments.forEach(comment => { %>
-                            <div class="view_comment" >
-                                <img src="/images/budgetingcover.jpg" alt="baking" class="viewcomment_profilepic">
-                                
+                            <div class="view_comment">
+
+                                <i class="material-icons" style="font-size: 50px; width: 10px; margin-left: -20px;">
+                                    arrow_right
+                                </i>
                                 
                                 <div class="comment_con">
                                     <div class="viewcomment_text">
