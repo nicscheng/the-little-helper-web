@@ -275,6 +275,7 @@ router.post('/edit-post/:id', (req, res) => {
   });
 });
 
+
  router.get('/delete-account/:id', (req, res) => {
   User.findById(req.params.id, (err, user) => {
     res.render('profile', {
@@ -402,7 +403,7 @@ router.get('/add-favorites/:id', async(req, res) => {
   })
 });
 
-router.get('/delete-collection/:id', isLoggedIn, async(req, res) => {
+/*router.get('/delete-collection/:id', isLoggedIn, async(req, res) => {
   const allPosts = await Post.find({author:[req.user.username]})
   const likedPosts = await Like.find({liker:[req.user.username]})
   const collectPosts = await Collection.find({collector:[req.user.username]})
@@ -414,9 +415,9 @@ router.get('/delete-collection/:id', isLoggedIn, async(req, res) => {
       collects: collectPosts
     });
   });
-});
+});*/
 
-router.post('/delete-collection/:id', async (req, res) => {
+router.get('/delete-collection/:id', async (req, res) => {
   try 
   {
     if (!req.user._id)
@@ -437,6 +438,28 @@ router.post('/delete-collection/:id', async (req, res) => {
   }
 
 });
+
+/*router.get('/delete-collection-post/:id', (req, res) => {
+  let collection = {};
+  collection.collector = "0";
+  collection.postID = "0";
+  collection.title = "0";
+  collection.content = "0";
+
+  let query = {_id: req.params.id}
+
+  Collection.updateOne(query, collection, (err) => {
+    if(err)
+    {
+      console.log(err);
+      return;
+    }
+    else{
+      res.redirect('/profile');
+    }
+  });
+});*/
+
 
 router.get('/new-collection/:id', (req, res) => {
   res.render('post');
@@ -515,7 +538,6 @@ router.post('/post-form', (req, res) => {
   //post.img4 = req.file.filename;
   //post.img5 = req.file.filename;
   post.postID = req.user._id;
-  post.link = req.body.url;
   post.category = req.body.category;
   post.author = req.user.username;
   title = post.title;
