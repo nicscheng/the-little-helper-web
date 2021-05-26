@@ -342,7 +342,7 @@ router.get('/userprofile/:user', isLoggedIn, async(req, res) => {
     const likedPosts = await Like.find({liker:[req.params.user]})
     const collectPosts = await Collection.find({collector:[req.params.user]})
 
-    //console.log(users.username);
+    console.log(users.avatar);
 
     res.render('userprofile', {
       users: users, isLoggedIn: req.isLogged,
@@ -439,6 +439,8 @@ router.get('/delete-collection/:id', async (req, res) => {
 
 });
 
+
+
 /*router.get('/delete-collection-post/:id', (req, res) => {
   let collection = {};
   collection.collector = "0";
@@ -459,6 +461,8 @@ router.get('/delete-collection/:id', async (req, res) => {
     }
   });
 });*/
+
+
 
 
 router.get('/new-collection/:id', (req, res) => {
@@ -620,6 +624,25 @@ router.get('/post/:id', isLoggedIn, async(req, res) => {
       user:req.user, collectNames:collectNames
     });
   });
+
+  
+router.get('/delete-post/:id', async(req, res) => {
+  try 
+  {
+    let query = req.params.id;
+
+    const remove = await Post.findByIdAndRemove(query);
+
+    if(remove)
+    {
+      res.redirect('/profile');
+    }
+  }
+  catch(e)
+  {
+    res.send(e);
+  }
+})
 
 
   /*if(req.query.search) {
