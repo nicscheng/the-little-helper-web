@@ -2,15 +2,6 @@
 
 
 $(document).ready(function(){
-
-    $('#button1').click(function () {
-        $(".bg-modal").css('display','flex');
-
-        $('.close0').click(function () {
-            $(".bg-modal").css('display','none');
-        });
-    });
-
     $('#button2').click(function () {
         $(".bg_modal").css('display','flex');
 
@@ -26,6 +17,14 @@ $(document).ready(function(){
             $(".bg_modal2").css('display','none');
         });
     });
+    
+    $('#button1').click(function () {
+        $(".bg-modal").css('display','flex');
+
+        $('.close0').click(function () {
+            $(".bg-modal").css('display','none');
+        });
+    });
 
     $('#button4').click(function () {
         $(".bg_modal3").css('display','flex');
@@ -34,7 +33,10 @@ $(document).ready(function(){
             $(".bg_modal3").css('display','none');
         });
     });
+    
 });
+
+
 
 $(document).ready(function(){
 
@@ -57,14 +59,6 @@ function tabs(panelIndex){
 
 tabs(0);
 
-
-document.getElementById('button1').addEventListener('click', function(){
-    document.querySelector('.bg-modal').style.display = 'flex';
-});
- 
-document.querySelector('.close').addEventListener('click', function(){
-    document.querySelector('.bg-modal').style.display = 'none';
-});
 
 $("#edit_profile").submit(function(event){
     event.preventDefault();
@@ -96,29 +90,7 @@ $(document).ready(function(){
     $('.venobox').venobox(); 
 });
 
-document.getElementById('button2').addEventListener('click', function(){
-    document.querySelector('.bg_modal').style.display = 'flex';
-});
 
-document.querySelector('.close').addEventListener('click', function(){
-    document.querySelector('.bg_modal').style.display = 'none';
-});
-    
-document.getElementById('button3').addEventListener('click', function(){
-    document.querySelector('.bg_modal2').style.display = 'flex';
-});
-
-document.querySelector('.close2').addEventListener('click', function(){
-    document.querySelector('.bg_modal2').style.display = 'none';
-});
-
-document.getElementById('button4').addEventListener('click', function(){
-    document.querySelector('.bg_modal3').style.display = 'flex';
-});
-
-document.querySelector('.close3').addEventListener('click', function(){
-    document.querySelector('.bg_modal3').style.display = 'none';
-});
 
 /*$(document).ready(function(){
     $('.delete-account').on('click', function(e){

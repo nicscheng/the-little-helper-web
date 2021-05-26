@@ -105,11 +105,33 @@ body{
     transition: 0.5s;
 }
 
+/*
 .profile_search_img{
     width: 200px;
     height: 200px;
     display: block;
     border-radius: 50% 50%;
+}
+*/
+
+.profile_search_img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: none;
+    border: 10px solid black;
+    
+    width: 150px;
+    height: 150px;
+    border-radius: 50% 50%;
+}
+
+.psi_text{
+    text-transform: uppercase;
+    font-size: 0;
+}
+.psi_text::first-letter{
+    font-size: 50px;
 }
 
 .profile_search:hover{

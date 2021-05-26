@@ -60,7 +60,16 @@
         <div class="grid">
             <% users.forEach(user => { %>
             <div class="profile_search" >
-                <img src="images/profile1.png" alt="user" class="profile_search_img" style="background-color: none;">
+                <div class="profile_search_img">
+                    <div class="psi_text">
+                        <%= user.username %>
+                    </div>
+                </div>
+
+                <!--
+                    <img src="images/profile1.png" alt="user" class="profile_search_img" style="background-color: none;">
+                -->
+                
                 <!--
                     if may inuplaod na dp
                     <img src="images/bakingcover.jpg" alt="user" class="profile_search_img" style="background-color: none;"> -->

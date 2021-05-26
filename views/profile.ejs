@@ -13,6 +13,7 @@
         <script type="text/javascript" src="venobox\venobox.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         
+        
     </head>
     <body>
             <%if (isLoggedIn) { %>
@@ -170,6 +171,9 @@
         <div style="margin: 30px 50%;">
             <a href="/about">About</a>
         </div>
+
+        <%- include ("./partials/popup"); %>
+
         <div class="bg_modal3">
             <div class="modal_content">
                 <div class="close3">+</div>    
@@ -222,7 +226,7 @@
         </div>
         <div class="bg-modal">
             <div class="modal-content">
-                <div class="close">+</div>
+                <div class="close0">+</div>
                 <img src = "/images/profile.png" width="200">
                 <form action="/edit-profile/<%=user._id%>" method="POST" enctype="multipart/form-data">
                     <div class="user-details">
@@ -267,34 +271,10 @@
                 </form>
             </div>
         </div>
-        <div class="bg_modal3">
-            <div class="modal_content">
-                <div class="close3">+</div>    
-                <form action="/register" method="POST" class="reg_form" id="reg_form">
-                    <img src="/images/register2.png" alt="">
-
-                    <div class="form_control">
-                        <input type="email" placeholder="Email" required>
-                    </div>
-                    <div class="form_control">
-                        <input type="text" placeholder="Username" required>
-                    </div>
-                    <div class="form_control">
-                        <input type="password" placeholder="Password" required>
-                    </div>
-                    <div class="form_control">
-                        <label for="img">Select avatar:</label>
-                        <input type="file" id="img" name="img" accept="image/*">
-                    </div>
-                    <div class="form_control">
-                        <textarea name="message" placeholder="Short description"></textarea>
-                    </div>
-                    <!-- <a href="" class="button">Submit</a> -->
-                    <button type="submit">Submit</button> 
-                </form>
-            </div>
-        </div>
+        
+        
         <script src="/jquery/profile.js" type="text/javascript"></script>
+        
         
     </body>
 </html> 
