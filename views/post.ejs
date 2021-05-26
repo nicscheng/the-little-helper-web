@@ -112,15 +112,17 @@
                                     </div>
                                 </span>
                             </a>
-                            
-                            <button class="edit_post" style="background-color: black; color: white; font-size: 0.8em; border: none;">
-                                <i class="material-icons">
-                                    delete
-                                </i>
-                                <span class="favorite_text">
-                                    DELETE POST
-                                </span>
-                            </button>
+                            <form action="/">
+                                <button class="edit_post" formaction="/delete-post/<%=post._id%>" style="background-color: black; color: white; font-size: 0.8em; border: none;">
+                                    <i class="material-icons">
+                                        delete
+                                    </i>
+                                    <span class="favorite_text">
+                                        DELETE POST
+                                    </span>
+                                </button>
+                            </form>
+                           
                         </div>
                     
                     <% }%>
