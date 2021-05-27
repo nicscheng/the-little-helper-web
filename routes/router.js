@@ -204,6 +204,7 @@ router.get('/edit-profile/:id', (req, res) => {
   });
 });
 
+
 router.post('/edit-profile/:id',  upload.single('avatar'), (req, res) => {
   let user = {};
   user.username = req.body.username;
@@ -303,6 +304,30 @@ router.post('/edit-post/:id', (req, res) => {
   catch (e)
   {
     res.send(e);
+  }
+
+});
+
+
+
+router.get('/generalfeed', isLoggedIn, async(req, res) => {
+
+  if(req.query.search) {
+      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+      const allPosts = await Post.find({title: regex})
+
+      res.render('generalfeed', {
+        user: req.user, isLoggedIn: req.isLogged,
+        posts: allPosts
+      });
+
+  } else {
+      const allPosts = await Post.find()
+
+      res.render('generalfeed', {
+        user: req.user, isLoggedIn: req.isLogged,
+        posts: allPosts
+      });
   }
 
 });
@@ -498,14 +523,15 @@ router.post('/new-collection/:id', async(req, res) => {
   })
 });
 
-router.get('/old-collection/:id', async(req, res) => {
+router.post('/old-collection/:id', async(req, res) => {
   let collect = {};
   let query = {_id: req.params.id};
-  collect.name = req.body.name;
+  collect.collectName = req.body.collectName;
   collect.collector = req.user.username;
   collect.postID = query;
 
   const collected = await Post.findById(req.params.id);
+  
 
   collect.title = collected.title;
   collect.content = collected.content;
@@ -516,7 +542,7 @@ router.get('/old-collection/:id', async(req, res) => {
     if(err)
     {
       console.log(err);
-      return;
+      return; 
     }
     else
     {
@@ -588,40 +614,17 @@ router.post('/comment-form/:id', (req, res) => {
   })
 })
 
-router.get('/generalfeed', isLoggedIn, async(req, res) => {
 
-  if(req.query.search) {
-      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-      const allPosts = await Post.find({title: regex})
-
-      res.render('generalfeed', {
-        user: req.user, isLoggedIn: req.isLogged,
-        posts: allPosts
-      });
-
-  } else {
-      const allPosts = await Post.find()
-
-      res.render('generalfeed', {
-        user: req.user, isLoggedIn: req.isLogged,
-        posts: allPosts
-      });
-  }
-
-});
 
 
 router.get('/post/:id', isLoggedIn, async(req, res) => {
 
   const comments = await Comment.find({postID:[req.params.id]})
-  const collectNames = await Collection.distinct("collectName");
-  //const likedLength = await Like.find({'_id': ObjectID(req.params.id)});
+  const collectNames = await Collection.find({collector:[req.user.username]})
   const likedLength = await Like.find({'postID': ObjectID(req.params.id)});
+  //const exist_collect = await Collection.find({collector:[req.user.username]})
 
   var count = 0, i = 0;
-
-  //const user = req.user.username;
- // if (likedLength.liker == )
 
  for (; i < likedLength.length; ) {
     if (likedLength[i].liker == req.user.username)
@@ -641,40 +644,23 @@ router.get('/post/:id', isLoggedIn, async(req, res) => {
 
 
 router.get('/delete-post/:id', async(req, res) => {
-  try 
-  {
-    let query = req.params.id;
 
-    const remove = await Post.findByIdAndRemove(query);
-
-    if(remove)
+    try 
     {
-      res.redirect('/profile');
+      let query = req.params.id;
+
+      const remove = await Post.findByIdAndRemove(query);
+
+        if(remove)
+        {
+          res.redirect('/profile');
+        }
     }
-  }
-  catch(e)
-  {
-    res.send(e);
-  }
-})
-
-
-  /*if(req.query.search) {
-    //const{title} = req.query;
-    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-    const allPosts = await Post.find({title: regex})
-
-    res.render('generalfeed', {
-      user: req.user, isLoggedIn: req.isLogged,
-      posts: allPosts
-    });
-  }
-
-  else{  
-    res.render('post', {
-      user: req.user, isLoggedIn: req.isLogged
-    });
-  }*/
+    catch(e)
+    {
+        res.send(e);
+    }
+  })
 
 });
 

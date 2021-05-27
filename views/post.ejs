@@ -357,13 +357,13 @@
                     </div>
                     <button type="submit" id="newcollbutton">Submit</button> 
                 </form>
-                <form action="/old-collection/<%= post._id%>" method="GET" class="collection_form" id="collection_form">
+                <form action="/old-collection/<%= post._id%>" method="POST" class="collection_form" id="collection_form">
 
                     <div id="coll">
                         <p><strong>Choose collection</strong></p>
                         <select id="category" name="collectName">
                             <% collectNames.forEach(name => { %>
-                            <option value="<%= name%>"><%= name%></option>
+                            <option value="<%= name.collectName%>"><%= name.collectName%></option>
                             <% }) %>
                         </select>
                     </div>
