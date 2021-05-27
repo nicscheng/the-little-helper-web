@@ -78,14 +78,17 @@
                             <a href="/profile" class="post_content" style="background-color: none;">
                                 <p class="post_title" ><%= userprof.username %></p>
                             </a>
+                        <% } else { %>
+                        <a href="/userprofile/<%= userprof.username%>" class="post_content" style="background-color: none;">
+                            <p class="post_title" ><%= userprof.username %></p>
+                            </a>
                         <% } %>
                     <% } else { %>
-
                         <a href="/userprofile/<%= userprof.username%>" class="post_content" style="background-color: none;">
                             <p class="post_title" ><%= userprof.username %></p>
                             </a>
                     <% } %>
-                </div>
+            </div>
             <% }) %>
         </div>
         

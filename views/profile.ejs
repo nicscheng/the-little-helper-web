@@ -172,7 +172,7 @@
         <div class="bg_modal3">
             <div class="modal_content">
                 <div class="close3">+</div>    
-                <form action="/post-form" method="POST" class="post_form" id="post_form">
+                <form action="/post-form" method="POST" class="post_form" id="post_form" enctype="multipart/form-data">
                     <img src="/images/writing.png" alt="">
 
                     <div class="form_control">
@@ -183,27 +183,28 @@
                     </div>
                     <div class="form_control">
                         <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img1" accept="image/*">
+                        <input type="file" id="img1" name="img1" accept="image/*">
                     </div>
                     <div class="form_control">
                         <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img2" accept="image/*">
+                        <input type="file" id="img2" name="img2" accept="image/*">
                     </div>
                     <div class="form_control">
                         <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img3" accept="image/*">
+                        <input type="file" id="img3" name="img3" accept="image/*">
                     </div>
                     <div class="form_control">
                         <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img4" accept="image/*">
+                        <input type="file" id="img4" name="img4" accept="image/*">
                     </div>
                     <div class="form_control">
                         <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img5" accept="image/*">
+                        <input type="file" id="img5" name="img5" accept="image/*">
                     </div>
                     <div class="form_control">
                         <input type="text" name="link" placeholder="Video link (Youtube)" >
                     </div>
+
                     <div>
                         <p><strong>Category</strong></p>
                         <select id="category" name="category">
