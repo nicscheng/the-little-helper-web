@@ -68,12 +68,13 @@ router.get('/logout', (req, res) => {
 
 router.get('/register', (req, res) => res.render('index'));
 
+
 const uploadStorage = multer.diskStorage({
   destination: function(req, file, cb){
     cb(null, 'public/uploads');
   },
   filename: function(req, file, cb){
-    cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+    cb(null, Date.now() + file.originalname);
   }
 });
 
@@ -531,12 +532,13 @@ router.get('/post-form',(req, res) => {
 });
 
 
-router.post('/post-form', (req, res) => {
+router.post('/post-form', upload.single('img1') , async(req, res) => {
+  
   let post = {};
   post.title = req.body.title;
   post.content = req.body.content;
   post.link = req.body.link;
-  //post.img1 = req.file.filename;
+  post.img1 = req.file.filename;
   //post.img2 = req.file.filename;
   //post.img3 = req.file.filename;
   //post.img4 = req.file.filename;
@@ -545,7 +547,31 @@ router.post('/post-form', (req, res) => {
   post.category = req.body.category;
   post.author = req.user.username;
   title = post.title;
+  
+/*
+  let post = new Post({
+    title: req.body.title,
+    content: req.body.content,
+    link: req.body.link,
+    img1: req.file.filename,
+    //post.img2 = req.file.filename,
+    //post.img3 = req.file.filename,
+    //post.img4 = req.file.filename,
+    //post.img5 = req.file.filename,
+    postID:req.user._id,
+    category: req.body.category,
+    author: req.user.username
+  });
+*/
+/*
+  try {
+    post = await post.save();
 
+    response.redirect('/profile');
+  } catch(err) {
+    console.log(err);
+  }
+*/
   const posts = new Post(post)
 
     posts.save((err, posts) => {
@@ -557,7 +583,7 @@ router.post('/post-form', (req, res) => {
       else{
         res.redirect('/profile');
       }
-    })
+    }) 
 });
 
 router.get('/comment-form/:id', (req, res) => {
