@@ -648,16 +648,18 @@ router.get('/post/:id', isLoggedIn, async(req, res) => {
 
   //const user = req.user.username;
  // if (likedLength.liker == )
-
- for (; i < likedLength.length; ) {
-    if (likedLength[i].liker == req.user.username)
-    {
-      count++;
-      i++;
+  if(req.isLogged)
+  {
+    for (; i < likedLength.length; ) {
+      if (likedLength[i].liker == req.user.username)
+      {
+        count++;
+        i++;
+      }
     }
- }
+  }
  
-  console.log(likedLength);
+ 
   Post.findOne({"_id": ObjectID(req.params.id)}, (err, post) => {
     res.render('post', {
       post:post, isLoggedIn: req.isLogged, comments:comments,

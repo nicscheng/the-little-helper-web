@@ -73,15 +73,21 @@
                 <!--
                     if may inuplaod na dp
                     <img src="images/bakingcover.jpg" alt="user" class="profile_search_img" style="background-color: none;"> -->
-                <% if(userprof.username == user.username) { %>
-                <a href="/userprofile/<%= userprof.username%>" class="post_content" style="background-color: none;">
-                    <p class="post_title" ><%= userprof.username %></p>
-                </a>
-                <% } else { %>
-                    <a href="/profile" class="post_content" style="background-color: none;">
-                        <p class="post_title" ><%= userprof.username %></p>
-                    </a>
-                <% } %>
+                    <% if(isLoggedIn) { %>
+                        <% if(userprof.username == user.username) { %>
+                            <a href="/profile" class="post_content" style="background-color: none;">
+                                <p class="post_title" ><%= userprof.username %></p>
+                            </a>
+                        <% } else { %>
+                        <a href="/userprofile/<%= userprof.username%>" class="post_content" style="background-color: none;">
+                            <p class="post_title" ><%= userprof.username %></p>
+                            </a>
+                        <% } %>
+                    <% } else { %>
+                        <a href="/userprofile/<%= userprof.username%>" class="post_content" style="background-color: none;">
+                            <p class="post_title" ><%= userprof.username %></p>
+                            </a>
+                    <% } %>
             </div>
             <% }) %>
         </div>
